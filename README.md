@@ -6,40 +6,37 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/NotAccursed/SimpleObfuscator/wiki/Home--Simple-Obfuscator">What is SimpleObfuscator?</a>&nbsp;&nbsp;&nbsp;
-    <a href="https://github.com/NotAccursed/SimpleObfuscator/issues">Contribution guide</a>&nbsp;&nbsp;&nbsp;
+    <a href="https://github.com/AnErrupTion/Goldfuscator/wiki/Home--Simple-Obfuscator">What is Goldfuscator?</a>&nbsp;&nbsp;&nbsp;
+    <a href="https://github.com/AnErrupTion/Goldfuscator/issues">Contribution guide</a>&nbsp;&nbsp;&nbsp;
     <a href="https://mwsoftobf.xyz/">Get a premium obfuscator</a>&nbsp;&nbsp;&nbsp;
-    <a href="https://twitter.com/NAccursed">Twitter</a>&nbsp;&nbsp;&nbsp;
+    <a href="https://twitter.com/NAccursed">NotAccursed's Twitter</a>&nbsp;&nbsp;&nbsp;
 </p>
 
 <br>
 
 <p align="center">
-    <b>Follow <a href="https://twitter.com/NAccursed">my Twitter account</a> for updates on new protection additions.</b>
-</p>
-
-<br>
-
-<p align="center">
-  <sub>The simple obfuscator. Built with ❤︎ by <a href="https://twitter.com/NAccursed">NotAccursed</a></sub>
+  <sub>The fork of the simple obfuscator. Built with ❤︎ by <a href="https://twitter.com/NAccursed">NotAccursed</a> and forked by AnErrupTion.</sub>
 </p>
 <br>
 
-# SimpleObfuscator [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+# Goldfuscator [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
 
-# 📜 Why do you need SimpleObfuscator ?
+# 📜 Why do you need Goldfuscator?
 
-You can learn from it! The code it's really simple and clean!
+You can learn from it, it's just a fork (an amelioration) of the original project, making it easier to learn even more things!
 
-# 💥 What does it do ?
+# 💥 What does it do?
 
 - [x] Support all .NET Frameworks
-- [x] Support all .NET Core 
-- [x] Protect names of methods
-- [x] Protect names of classes
+- [x] Support all .NET Core
+- [x] Updated dnlib version
+- [x] Protect names of methods and classes
+- [x] Secure cryptographical randoms
 - [x] Add junk methods
+- [x] Removes custom attributes
 
 # 📚 Credits 
 
 [0xd4d's dnlib](https://github.com/0xd4d/dnlib/)
+[NotAccursed's SimpleObfuscator](https://github.com/NotAccursed/SimpleObfuscator/)
