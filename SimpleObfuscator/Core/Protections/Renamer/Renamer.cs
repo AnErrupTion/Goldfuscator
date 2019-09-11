@@ -1,10 +1,12 @@
-﻿using dnlib.DotNet;
-using SimpleObfuscator.Core.Protections.Analyzer;
-using SimpleObfuscator.Core.Utils;
+using dnlib.DotNet;
+using Goldfuscator.Core.Protections.AddRandoms;
+using Goldfuscator.Core.Protections.Analyzer;
+using Goldfuscator.Core.Utils;
+using System.Linq;
 
-namespace SimpleObfuscator.Core.Protections
+namespace Goldfuscator.Core.Protections
 {
-	internal class Renamer : Randoms
+	internal class Renamer : SecureRandoms
 	{
 		/// <summary>
 		/// We are executing the method 'Renamer'. The Renamer will rename name of { Types, Methods, Parameters, Properties, Fields }.
@@ -14,26 +16,37 @@ namespace SimpleObfuscator.Core.Protections
 			foreach (var type in module.Types)
 			{
 				if (CanRename(type))
-					type.Name = RandomString();
+                {
+                    type.Name = GenerateRandomString(20);
+                    type.Namespace = GenerateRandomString(20);
+                }
 
-				foreach (var m in type.Methods)
-				{
-					if (CanRename(m))
-						m.Name = RandomString();
-					foreach (var para in m.Parameters)
-						para.Name = RandomString();
-				}
-				foreach (var p in type.Properties)
-				{
-					if (CanRename(p))
-						p.Name = RandomString();
-				}
-				foreach (var field in type.Fields)
-				{
-					if (CanRename(field))
-						field.Name = RandomString();
-				}
-			}
+                foreach (var m in type.Methods)
+                {
+                    if (CanRename(m) && !Program.IsWinForms)
+                        m.Name = GenerateRandomString(20);
+                    foreach (var para in m.Parameters)
+                        para.Name = GenerateRandomString(20);
+                }
+
+                foreach (var p in type.Properties)
+                {
+                    if (CanRename(p))
+                        p.Name = GenerateRandomString(20);
+                }
+
+                foreach (var field in type.Fields)
+                {
+                    if (CanRename(field))
+                        field.Name = GenerateRandomString(20);
+                }
+
+                foreach (var e in type.Events)
+                {
+                    if (CanRename(e))
+                        e.Name = GenerateRandomString(20);
+                }
+            }
 		}
 
 		/// <summary>
