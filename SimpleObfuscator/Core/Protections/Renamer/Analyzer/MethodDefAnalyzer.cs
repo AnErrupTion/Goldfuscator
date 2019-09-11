@@ -1,10 +1,12 @@
-﻿namespace SimpleObfuscator.Core.Protections.Analyzer
+using dnlib.DotNet;
+
+namespace Goldfuscator.Core.Protections.Analyzer
 {
 	public class MethodDefAnalyzer : iAnalyze
 	{
 		public override bool Execute(object context)
 		{
-			dnlib.DotNet.MethodDef method = (dnlib.DotNet.MethodDef)context;
+			MethodDef method = (MethodDef)context;
 			if (method.IsRuntimeSpecialName)
 				return false;
 			if (method.DeclaringType.IsForwarder)
