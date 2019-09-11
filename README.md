@@ -11,7 +11,12 @@
     <a href="https://mwsoftobf.xyz/">Get a premium obfuscator</a>&nbsp;&nbsp;&nbsp;
     <a href="https://twitter.com/NAccursed">NotAccursed's Twitter</a>&nbsp;&nbsp;&nbsp;
 </p>
+<br>
 
+<p align="center">
+    <img src="https://i.imgur.com/fGOv95K.png">Before :</img>
+    <img src="https://i.imgur.com/DPzUMA5.png">After :</img>
+</p>
 <br>
 
 <p align="center">
