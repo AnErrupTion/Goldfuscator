@@ -14,8 +14,10 @@
 <br>
 
 <p align="center">
-    <img src="https://i.imgur.com/fGOv95K.png">Before :</img>
-    <img src="https://i.imgur.com/DPzUMA5.png">After :</img>
+    <h2>Before :</h2>
+    <img src="https://i.imgur.com/fGOv95K.png">
+    <h2>After :</h2>
+    <img src="https://i.imgur.com/DPzUMA5.png">
 </p>
 <br>
 
