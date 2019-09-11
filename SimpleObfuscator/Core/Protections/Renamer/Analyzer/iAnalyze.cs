@@ -1,4 +1,4 @@
-﻿namespace SimpleObfuscator.Core.Protections.Analyzer
+namespace Goldfuscator.Core.Protections.Analyzer
 {
 	public abstract class iAnalyze
 	{
