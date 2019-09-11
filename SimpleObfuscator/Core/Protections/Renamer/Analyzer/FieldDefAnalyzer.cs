@@ -1,10 +1,12 @@
-﻿namespace SimpleObfuscator.Core.Protections.Analyzer
+using dnlib.DotNet;
+
+namespace Goldfuscator.Core.Protections.Analyzer
 {
 	public class FieldDefAnalyzer : iAnalyze
 	{
 		public override bool Execute(object context)
 		{
-			dnlib.DotNet.FieldDef field = (dnlib.DotNet.FieldDef)context;
+			FieldDef field = (FieldDef)context;
 			if (field.IsRuntimeSpecialName)
 				return false;
 			if (field.IsLiteral && field.DeclaringType.IsEnum)
