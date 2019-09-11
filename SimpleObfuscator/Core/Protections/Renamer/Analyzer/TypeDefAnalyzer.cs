@@ -1,10 +1,12 @@
-﻿namespace SimpleObfuscator.Core.Protections.Analyzer
+using dnlib.DotNet;
+
+namespace Goldfuscator.Core.Protections.Analyzer
 {
 	public class TypeDefAnalyzer : iAnalyze
 	{
 		public override bool Execute(object context)
 		{
-			dnlib.DotNet.TypeDef type = (dnlib.DotNet.TypeDef)context;
+			TypeDef type = (TypeDef)context;
 			if (type.IsRuntimeSpecialName)
 				return false;
 			if (type.IsGlobalModuleType)
