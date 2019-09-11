@@ -1,11 +1,11 @@
-﻿using dnlib.DotNet;
+using dnlib.DotNet;
 using dnlib.DotNet.Emit;
-using SimpleObfuscator.Core.Utils;
+using Goldfuscator.Core.Utils;
 using System.Linq;
 
-namespace SimpleObfuscator.Core.Protections.AddRandoms
+namespace Goldfuscator.Core.Protections.AddRandoms
 {
-	internal class RandomOutlinedMethods : Randoms
+	internal class RandomOutlinedMethods : SecureRandoms
 	{
 		/// <summary>
 		/// We are executing the method 'RandomOutlinedMethods'. RandomOutlinedMethods will add random methods to Types.
@@ -16,8 +16,8 @@ namespace SimpleObfuscator.Core.Protections.AddRandoms
 			{
 				foreach (var method in type.Methods.ToArray())
 				{
-					MethodDef strings = CreateReturnMethodDef(RandomString(), method);
-					MethodDef ints = CreateReturnMethodDef(RandomInt(), method);
+					MethodDef strings = CreateReturnMethodDef(GenerateRandomString(20), method);
+					MethodDef ints = CreateReturnMethodDef(Next(11111, 999999999), method);
 					type.Methods.Add(strings);
 					type.Methods.Add(ints);
 				}
@@ -27,7 +27,7 @@ namespace SimpleObfuscator.Core.Protections.AddRandoms
 		/// <summary>
 		/// We are making the return value for the randomly generated method. The return value can be an Integer, a Double or a String.
 		/// </summary>
-		private static MethodDef CreateReturnMethodDef(object value, MethodDef source_method)
+		public static MethodDef CreateReturnMethodDef(object value, MethodDef source_method)
 		{
 			CorLibTypeSig corlib = null;
 
@@ -37,7 +37,7 @@ namespace SimpleObfuscator.Core.Protections.AddRandoms
 				corlib = source_method.Module.CorLibTypes.Single;
 			else if (value is string)
 				corlib = source_method.Module.CorLibTypes.String;
-			MethodDef newMethod = new MethodDefUser(RandomString(),
+			MethodDef newMethod = new MethodDefUser(GenerateRandomString(20),
 					MethodSig.CreateStatic(corlib),
 					MethodImplAttributes.IL | MethodImplAttributes.Managed,
 					MethodAttributes.Public | MethodAttributes.Static | MethodAttributes.HideBySig)
@@ -53,5 +53,5 @@ namespace SimpleObfuscator.Core.Protections.AddRandoms
 			newMethod.Body.Instructions.Add(new Instruction(OpCodes.Ret));
 			return newMethod;
 		}
-	}
+    }
 }
