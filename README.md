@@ -16,6 +16,7 @@
 
 <p align="center">
   <sub>The fork of the simple obfuscator. Built with ❤︎ by <a href="https://twitter.com/NAccursed">NotAccursed</a> and forked by AnErrupTion.</sub>
+    <h2>You MUST install dnlib from NuGet, so you MUST use Visual Studio 2019 and MUST have .NET Framework v4.6.1 installed on your PC.</h2>
 </p>
 <br>
 
