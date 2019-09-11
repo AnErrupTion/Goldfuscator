@@ -1,29 +1,59 @@
-﻿using dnlib.DotNet;
-using SimpleObfuscator.Core.Protections;
-using SimpleObfuscator.Core.Protections.AddRandoms;
+using dnlib.DotNet;
+using Goldfuscator.Core.Protections;
+using Goldfuscator.Core.Protections.MetaStrip;
 using System;
+using Goldfuscator.Core.Utils;
+using System.IO;
+using Goldfuscator.Core.Protections.AddRandoms;
+using Goldfuscator.Core.Protections.StringEncrypt;
 
 internal class Program
 {
-	/// <summary>
-	/// ModuleDefMD module = ModuleDefMD.Load(Console.ReadLine()); || We are getting the file path by reading the console.
-	/// Execute(module); || We are obfuscating the file.
-	/// module.Write(Environment.CurrentDirectory + @"\protected.exe"); || We are rewriting the file in the current directory.
-	/// </summary>
-	private static void Main()
-	{
-		ModuleDefMD module = ModuleDefMD.Load(Console.ReadLine());
-		Execute(module);
-		module.Write(Environment.CurrentDirectory + @"\protected.exe");
-	}
+    public static bool IsWinForms = false;
 
-	/// <summary>
-	/// Renamer.Execute(module); || We are exectuing the obfuscation method 'Renamer'.
-	/// RandomOutlinedMethods.Execute(module); || We are exectuing the obfuscation method 'RandomOutlinedMethods'.
-	/// </summary>
-	private static void Execute(ModuleDefMD module)
+    /// <summary>
+    /// ModuleDefMD module = ModuleDefMD.Load(Console.ReadLine()); || We are getting the file path by reading the console.
+    /// Execute(module); || We are obfuscating the file.
+    /// module.Write(Environment.CurrentDirectory + @"\protected.exe"); || We are rewriting the file in the current directory.
+    /// </summary>
+    private static void Main()
 	{
+        Console.Title = Reference.Name + " v" + Reference.Version;
+
+        Console.WriteLine("Drag & drop your file here :");
+        string file = Console.ReadLine().Replace("\"", "");
+
+        Console.WriteLine("Is your file a Windows Forms app (true) or Console app (false)?");
+        IsWinForms = Convert.ToBoolean(Console.ReadLine());
+
+        Console.Clear();
+
+        ModuleDefMD module = ModuleDefMD.Load(file);
+        string fileName = Path.GetFileNameWithoutExtension(file);
+		Execute(module);
+		module.Write(@"C:\Users\" + Environment.UserName + @"\Desktop\" + fileName + "_protected.exe");
+
+        Console.WriteLine(Reference.Prefix + "Done!");
+        Console.ReadKey();
+    }
+
+    /// <summary>
+    /// Renamer.Execute(module); || We are executing the obfuscation method 'Renamer'.
+    /// RandomOutlinedMethods.Execute(module); || We are executing the obfuscation method 'RandomOutlinedMethods'.
+    /// MetaStrip.Execute(module); || We are executing the obfuscation method 'MetaStrip'.
+    /// OBAdder.Execute(module); || We are executing the obfuscation method 'OBAdder'.
+    /// </summary>
+    private static void Execute(ModuleDefMD module)
+	{
+        Console.WriteLine(Reference.Prefix + "Applying 'Renamer' obfuscation...");
 		Renamer.Execute(module: module);
-		RandomOutlinedMethods.Execute(module: module);
-	}
+        Console.WriteLine(Reference.Prefix + "Applying 'RandomOutlinedMethods' obfuscation...");
+        RandomOutlinedMethods.Execute(module: module);
+        Console.WriteLine(Reference.Prefix + "Applying 'MetaStrip' obfuscation...");
+        MetaStrip.Execute(module: module);
+        Console.WriteLine(Reference.Prefix + "Applying 'OBAdder' obfuscation...");
+        OBAdder.Execute(module: module);
+        //Console.WriteLine(Reference.Prefix + "Applying 'StringEncryption' obfuscation...");
+        //StringEncryption.Execute(module: module);
+    }
 }
