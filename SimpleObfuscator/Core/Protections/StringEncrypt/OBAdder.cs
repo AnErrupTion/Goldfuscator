@@ -1,10 +1,17 @@
-﻿using dnlib.DotNet;
+using dnlib.DotNet;
 using dnlib.DotNet.Emit;
+using System;
 
 namespace Goldfuscator.Core.Utils
 {
     internal class OBAdder
     {
+        /// <summary>
+        /// The 'OBAdder' obfuscation will add a function everywhere (including the global type) that returns "Obfuscated with *appName* v*appVersion*."
+        /// </summary>
+
+        // Special credits to Sir-_-MaGeLanD for some code.
+
         public static void Execute(ModuleDefMD module)
         {
             foreach (var type in module.Types)
@@ -12,6 +19,7 @@ namespace Goldfuscator.Core.Utils
                 MethodDef cctor = module.GlobalType.FindOrCreateStaticConstructor();
                 string value = "Obfuscated with " + Reference.Name + " v" + Reference.Version;
                 MethodDef strings = CreateReturnMethodDef(value, cctor);
+                Console.WriteLine("  [OBADDER] Adding method \"" + strings.Name + "\" in \"" + type.Name + "\"...");
                 type.Methods.Add(strings);
             }
         }
