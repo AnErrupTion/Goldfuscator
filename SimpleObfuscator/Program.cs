@@ -5,7 +5,6 @@ using System;
 using Goldfuscator.Core.Utils;
 using System.IO;
 using Goldfuscator.Core.Protections.AddRandoms;
-using Goldfuscator.Core.Protections.StringEncrypt;
 
 internal class Program
 {
@@ -23,6 +22,7 @@ internal class Program
         Console.WriteLine("Drag & drop your file here :");
         string file = Console.ReadLine().Replace("\"", "");
 
+        Console.Clear();
         Console.WriteLine("Is your file a Windows Forms app (true) or Console app (false)?");
         IsWinForms = Convert.ToBoolean(Console.ReadLine());
 
@@ -30,7 +30,20 @@ internal class Program
 
         ModuleDefMD module = ModuleDefMD.Load(file);
         string fileName = Path.GetFileNameWithoutExtension(file);
-		Execute(module);
+
+        Console.WriteLine("-----------------------------------------------------------------");
+        Console.WriteLine(Reference.Prefix + "Loaded " + module.Assembly.FullName);
+        Console.WriteLine(Reference.Prefix + "Has Resources : " + module.HasResources);
+        Console.WriteLine(Reference.Prefix + "Is Windows Forms : " + IsWinForms);
+        Console.WriteLine("-----------------------------------------------------------------");
+        Console.WriteLine();
+        Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
+
+        Console.Clear();
+
+        Execute(module);
+        Console.WriteLine(Reference.Prefix + "Saving file...");
 		module.Write(@"C:\Users\" + Environment.UserName + @"\Desktop\" + fileName + "_protected.exe");
 
         Console.WriteLine(Reference.Prefix + "Done!");
