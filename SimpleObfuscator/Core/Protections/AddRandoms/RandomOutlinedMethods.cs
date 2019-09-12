@@ -2,6 +2,7 @@ using dnlib.DotNet;
 using dnlib.DotNet.Emit;
 using Goldfuscator.Core.Utils;
 using System.Linq;
+using System;
 
 namespace Goldfuscator.Core.Protections.AddRandoms
 {
@@ -18,9 +19,11 @@ namespace Goldfuscator.Core.Protections.AddRandoms
 				{
 					MethodDef strings = CreateReturnMethodDef(GenerateRandomString(20), method);
 					MethodDef ints = CreateReturnMethodDef(Next(11111, 999999999), method);
-					type.Methods.Add(strings);
-					type.Methods.Add(ints);
-				}
+                    Console.WriteLine("  [ROM] Adding junk string method \"" + strings.Name + "\" in \"" + method.Name + "\" (" + type.Name + ")...");
+                    type.Methods.Add(strings);
+                    Console.WriteLine("  [ROM] Adding junk integer method \"" + strings.Name + "\" in \"" + method.Name + "\" (" + type.Name + ")...");
+                    type.Methods.Add(ints);
+                }
 			}
 		}
 
@@ -31,13 +34,13 @@ namespace Goldfuscator.Core.Protections.AddRandoms
 		{
 			CorLibTypeSig corlib = null;
 
-			if (value is int)
-				corlib = source_method.Module.CorLibTypes.Int32;
-			else if (value is float)
-				corlib = source_method.Module.CorLibTypes.Single;
-			else if (value is string)
-				corlib = source_method.Module.CorLibTypes.String;
-			MethodDef newMethod = new MethodDefUser(GenerateRandomString(20),
+            if (value is int)
+                corlib = source_method.Module.CorLibTypes.Int32;
+            else if (value is float)
+                corlib = source_method.Module.CorLibTypes.Single;
+            else if (value is string)
+                corlib = source_method.Module.CorLibTypes.String;
+            MethodDef newMethod = new MethodDefUser(GenerateRandomString(20),
 					MethodSig.CreateStatic(corlib),
 					MethodImplAttributes.IL | MethodImplAttributes.Managed,
 					MethodAttributes.Public | MethodAttributes.Static | MethodAttributes.HideBySig)
@@ -50,7 +53,7 @@ namespace Goldfuscator.Core.Protections.AddRandoms
 				newMethod.Body.Instructions.Add(Instruction.Create(OpCodes.Ldc_R4, (double)value));
 			else if (value is string)
 				newMethod.Body.Instructions.Add(Instruction.Create(OpCodes.Ldstr, (string)value));
-			newMethod.Body.Instructions.Add(new Instruction(OpCodes.Ret));
+            newMethod.Body.Instructions.Add(new Instruction(OpCodes.Ret));
 			return newMethod;
 		}
     }
