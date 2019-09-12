@@ -1,50 +1,80 @@
 using dnlib.DotNet;
-using Goldfuscator.Core.Protections.AddRandoms;
 using Goldfuscator.Core.Protections.Analyzer;
 using Goldfuscator.Core.Utils;
-using System.Linq;
+using System;
 
 namespace Goldfuscator.Core.Protections
 {
 	internal class Renamer : SecureRandoms
 	{
-		/// <summary>
-		/// We are executing the method 'Renamer'. The Renamer will rename name of { Types, Methods, Parameters, Properties, Fields }.
-		/// </summary>
-		public static void Execute(ModuleDefMD module)
+        /// <summary>
+        /// We are executing the method 'Renamer'. The Renamer will rename name of { Types, Methods, Parameters, Properties, Fields, Events }.
+        /// </summary>
+        public static void Execute(ModuleDefMD module)
 		{
-			foreach (var type in module.Types)
+            foreach (var type in module.Types)
 			{
 				if (CanRename(type))
                 {
-                    type.Name = GenerateRandomString(20);
-                    type.Namespace = GenerateRandomString(20);
+                    if (!module.HasResources)
+                    {
+                        Console.WriteLine("  [RENAMER] Renaming Type Name \"" + type.Name + "\"...");
+                        type.Name = GenerateRandomString(20);
+                        Console.WriteLine("  [RENAMER] Renaming Type Namespace \"" + type.Namespace + "\"...");
+                        type.Namespace = GenerateRandomString(20);
+                    }
+                    else
+                    {
+                        if (!Program.IsWinForms)
+                        {
+                            Console.WriteLine("  [RENAMER] Renaming Type Name \"" + type.Name + "\"...");
+                            type.Name = GenerateRandomString(20);
+                            Console.WriteLine("  [RENAMER] Renaming Type Namespace \"" + type.Namespace + "\"...");
+                            type.Namespace = GenerateRandomString(20);
+                        }
+                    }
                 }
 
                 foreach (var m in type.Methods)
                 {
                     if (CanRename(m) && !Program.IsWinForms)
+                    {
+                        Console.WriteLine("  [RENAMER] Renaming method \"" + m.Name + "\"...");
                         m.Name = GenerateRandomString(20);
+                    }
+
                     foreach (var para in m.Parameters)
+                    {
+                        Console.WriteLine("  [RENAMER] Renaming method's parameter \"" + para.Name + "\"...");
                         para.Name = GenerateRandomString(20);
+                    }
                 }
 
                 foreach (var p in type.Properties)
                 {
                     if (CanRename(p))
+                    {
+                        Console.WriteLine("  [RENAMER] Renaming property \"" + p.Name + "\"...");
                         p.Name = GenerateRandomString(20);
+                    }
                 }
 
                 foreach (var field in type.Fields)
                 {
                     if (CanRename(field))
+                    {
+                        Console.WriteLine("  [RENAMER] Renaming field \"" + field.Name + "\"...");
                         field.Name = GenerateRandomString(20);
+                    } 
                 }
 
                 foreach (var e in type.Events)
                 {
                     if (CanRename(e))
+                    {
+                        Console.WriteLine("  [RENAMER] Renaming event \"" + e.Name + "\"...");
                         e.Name = GenerateRandomString(20);
+                    }
                 }
             }
 		}
