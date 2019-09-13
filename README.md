@@ -43,6 +43,7 @@ You can learn from it, it's just a fork (an amelioration) of the original projec
 - [x] Secure cryptographical randoms
 - [x] Add junk methods
 - [x] Removes custom attributes
+- [x] Obfuscates .NET DLL and EXE files
 
 # 📚 Credits 
 
