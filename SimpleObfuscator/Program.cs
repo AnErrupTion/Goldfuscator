@@ -1,14 +1,15 @@
 using dnlib.DotNet;
 using Goldfuscator.Core.Protections;
-using Goldfuscator.Core.Protections.MetaStrip;
-using System;
-using Goldfuscator.Core.Utils;
-using System.IO;
 using Goldfuscator.Core.Protections.AddRandoms;
+using Goldfuscator.Core.Protections.MetaStrip;
+using Goldfuscator.Core.Utils;
+using System;
+using System.IO;
 
 internal class Program
 {
     public static bool IsWinForms = false;
+    public static string FileExtension = string.Empty;
 
     /// <summary>
     /// ModuleDefMD module = ModuleDefMD.Load(Console.ReadLine()); || We are getting the file path by reading the console.
@@ -22,9 +23,13 @@ internal class Program
         Console.WriteLine("Drag & drop your file here :");
         string file = Console.ReadLine().Replace("\"", "");
 
-        Console.Clear();
-        Console.WriteLine("Is your file a Windows Forms app (true) or Console app (false)?");
-        IsWinForms = Convert.ToBoolean(Console.ReadLine());
+        FileExtension = Path.GetExtension(file);
+        if (FileExtension.Contains("exe"))
+        {
+            Console.Clear();
+            Console.WriteLine("Is your file a Windows Forms app (true) or Console app (false)?");
+            IsWinForms = Convert.ToBoolean(Console.ReadLine());
+        }
 
         Console.Clear();
 
@@ -32,9 +37,13 @@ internal class Program
         string fileName = Path.GetFileNameWithoutExtension(file);
 
         Console.WriteLine("-----------------------------------------------------------------");
-        Console.WriteLine(Reference.Prefix + "Loaded " + module.Assembly.FullName);
+        Console.WriteLine(Reference.Prefix + "Loaded : " + module.Assembly.FullName);
         Console.WriteLine(Reference.Prefix + "Has Resources : " + module.HasResources);
-        Console.WriteLine(Reference.Prefix + "Is Windows Forms : " + IsWinForms);
+        if (FileExtension.Contains("exe"))
+        {
+            Console.WriteLine(Reference.Prefix + "Is Windows Forms : " + IsWinForms);
+        }
+        Console.WriteLine(Reference.Prefix + "File Extension : " + FileExtension.Replace(".", "").ToUpper());
         Console.WriteLine("-----------------------------------------------------------------");
         Console.WriteLine();
         Console.WriteLine("Press any key to continue...");
@@ -44,7 +53,7 @@ internal class Program
 
         Execute(module);
         Console.WriteLine(Reference.Prefix + "Saving file...");
-		module.Write(@"C:\Users\" + Environment.UserName + @"\Desktop\" + fileName + "_protected.exe");
+		module.Write(@"C:\Users\" + Environment.UserName + @"\Desktop\" + fileName + "_protected" + FileExtension);
 
         Console.WriteLine(Reference.Prefix + "Done!");
         Console.ReadKey();
