@@ -27,10 +27,13 @@ namespace Goldfuscator.Core.Protections
                     {
                         if (!Program.IsWinForms)
                         {
-                            Console.WriteLine("  [RENAMER] Renaming Type Name \"" + type.Name + "\"...");
-                            type.Name = GenerateRandomString(20);
-                            Console.WriteLine("  [RENAMER] Renaming Type Namespace \"" + type.Namespace + "\"...");
-                            type.Namespace = GenerateRandomString(20);
+                            if (!Program.FileExtension.Contains("dll"))
+                            {
+                                Console.WriteLine("  [RENAMER] Renaming Type Name \"" + type.Name + "\"...");
+                                type.Name = GenerateRandomString(20);
+                                Console.WriteLine("  [RENAMER] Renaming Type Namespace \"" + type.Namespace + "\"...");
+                                type.Namespace = GenerateRandomString(20);
+                            }
                         }
                     }
                 }
@@ -45,7 +48,7 @@ namespace Goldfuscator.Core.Protections
 
                     foreach (var para in m.Parameters)
                     {
-                        Console.WriteLine("  [RENAMER] Renaming method's parameter \"" + para.Name + "\"...");
+                        Console.WriteLine("  [RENAMER] Renaming method \"" + m.Name + "\"'s parameter \"" + para.Name + "\"...");
                         para.Name = GenerateRandomString(20);
                     }
                 }
