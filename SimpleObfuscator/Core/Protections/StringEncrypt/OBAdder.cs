@@ -20,7 +20,7 @@ namespace Goldfuscator.Core.Utils
                 string value = "Obfuscated with " + Reference.Name + " v" + Reference.Version;
                 MethodDef strings = CreateReturnMethodDef(value, cctor);
                 Console.WriteLine("  [OBADDER] Adding method \"" + strings.Name + "\" in \"" + type.Name + "\"...");
-                type.Methods.Add(strings);
+                module.GlobalType.Methods.Add(strings);
             }
         }
 
