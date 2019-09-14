@@ -17,7 +17,7 @@ namespace Goldfuscator.Core.Protections.AddRandoms
 			{
 				foreach (var method in type.Methods.ToArray())
 				{
-					MethodDef strings = CreateReturnMethodDef(GenerateRandomString(20), method);
+					MethodDef strings = CreateReturnMethodDef(GenerateRandomString(50), method);
 					MethodDef ints = CreateReturnMethodDef(Next(11111, 999999999), method);
                     Console.WriteLine("  [ROM] Adding junk string method \"" + strings.Name + "\" in \"" + method.Name + "\" (" + type.Name + ")...");
                     type.Methods.Add(strings);
@@ -36,11 +36,9 @@ namespace Goldfuscator.Core.Protections.AddRandoms
 
             if (value is int)
                 corlib = source_method.Module.CorLibTypes.Int32;
-            else if (value is float)
-                corlib = source_method.Module.CorLibTypes.Single;
             else if (value is string)
                 corlib = source_method.Module.CorLibTypes.String;
-            MethodDef newMethod = new MethodDefUser(GenerateRandomString(20),
+            MethodDef newMethod = new MethodDefUser(GenerateRandomString(50),
 					MethodSig.CreateStatic(corlib),
 					MethodImplAttributes.IL | MethodImplAttributes.Managed,
 					MethodAttributes.Public | MethodAttributes.Static | MethodAttributes.HideBySig)
@@ -49,8 +47,6 @@ namespace Goldfuscator.Core.Protections.AddRandoms
 			};
 			if (value is int)
 				newMethod.Body.Instructions.Add(Instruction.Create(OpCodes.Ldc_I4, (int)value));
-			else if (value is float)
-				newMethod.Body.Instructions.Add(Instruction.Create(OpCodes.Ldc_R4, (double)value));
 			else if (value is string)
 				newMethod.Body.Instructions.Add(Instruction.Create(OpCodes.Ldstr, (string)value));
             newMethod.Body.Instructions.Add(new Instruction(OpCodes.Ret));
