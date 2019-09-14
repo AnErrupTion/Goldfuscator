@@ -27,7 +27,7 @@
 </p>
 <br>
 
-# Goldfuscator [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+# Goldfuscator [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://erruption.mit-license.org/)
 
 
 # 📜 Why do you need Goldfuscator?
