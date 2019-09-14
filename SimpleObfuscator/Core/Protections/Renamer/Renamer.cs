@@ -14,42 +14,26 @@ namespace Goldfuscator.Core.Protections
 		{
             foreach (var type in module.Types)
 			{
-				if (CanRename(type))
+				if (CanRename(type) && !Program.IsWinForms && !Program.FileExtension.Contains("dll") && !module.HasResources)
                 {
-                    if (!module.HasResources)
-                    {
-                        Console.WriteLine("  [RENAMER] Renaming Type Name \"" + type.Name + "\"...");
-                        type.Name = GenerateRandomString(20);
-                        Console.WriteLine("  [RENAMER] Renaming Type Namespace \"" + type.Namespace + "\"...");
-                        type.Namespace = GenerateRandomString(20);
-                    }
-                    else
-                    {
-                        if (!Program.IsWinForms)
-                        {
-                            if (!Program.FileExtension.Contains("dll"))
-                            {
-                                Console.WriteLine("  [RENAMER] Renaming Type Name \"" + type.Name + "\"...");
-                                type.Name = GenerateRandomString(20);
-                                Console.WriteLine("  [RENAMER] Renaming Type Namespace \"" + type.Namespace + "\"...");
-                                type.Namespace = GenerateRandomString(20);
-                            }
-                        }
-                    }
+                    Console.WriteLine("  [RENAMER] Renaming Type Name \"" + type.Name + "\"...");
+                    type.Name = GenerateRandomString(50);
+                    Console.WriteLine("  [RENAMER] Renaming Type Namespace \"" + type.Namespace + "\"...");
+                    type.Namespace = GenerateRandomString(50);
                 }
 
                 foreach (var m in type.Methods)
                 {
-                    if (CanRename(m) && !Program.IsWinForms)
+                    if (CanRename(m) && !Program.IsWinForms && !Program.FileExtension.Contains("dll"))
                     {
                         Console.WriteLine("  [RENAMER] Renaming method \"" + m.Name + "\"...");
-                        m.Name = GenerateRandomString(20);
+                        m.Name = GenerateRandomString(50);
                     }
 
                     foreach (var para in m.Parameters)
                     {
                         Console.WriteLine("  [RENAMER] Renaming method \"" + m.Name + "\"'s parameter \"" + para.Name + "\"...");
-                        para.Name = GenerateRandomString(20);
+                        para.Name = GenerateRandomString(50);
                     }
                 }
 
@@ -58,7 +42,7 @@ namespace Goldfuscator.Core.Protections
                     if (CanRename(p))
                     {
                         Console.WriteLine("  [RENAMER] Renaming property \"" + p.Name + "\"...");
-                        p.Name = GenerateRandomString(20);
+                        p.Name = GenerateRandomString(50);
                     }
                 }
 
@@ -67,7 +51,7 @@ namespace Goldfuscator.Core.Protections
                     if (CanRename(field))
                     {
                         Console.WriteLine("  [RENAMER] Renaming field \"" + field.Name + "\"...");
-                        field.Name = GenerateRandomString(20);
+                        field.Name = GenerateRandomString(50);
                     } 
                 }
 
@@ -76,7 +60,7 @@ namespace Goldfuscator.Core.Protections
                     if (CanRename(e))
                     {
                         Console.WriteLine("  [RENAMER] Renaming event \"" + e.Name + "\"...");
-                        e.Name = GenerateRandomString(20);
+                        e.Name = GenerateRandomString(50);
                     }
                 }
             }
