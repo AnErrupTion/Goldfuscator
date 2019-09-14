@@ -14,14 +14,11 @@ namespace Goldfuscator.Core.Utils
 
         public static void Execute(ModuleDefMD module)
         {
-            foreach (var type in module.Types)
-            {
-                MethodDef cctor = module.GlobalType.FindOrCreateStaticConstructor();
-                string value = "Obfuscated with " + Reference.Name + " v" + Reference.Version;
-                MethodDef strings = CreateReturnMethodDef(value, cctor);
-                Console.WriteLine("  [OBADDER] Adding method \"" + strings.Name + "\" in \"" + type.Name + "\"...");
-                module.GlobalType.Methods.Add(strings);
-            }
+            MethodDef cctor = module.GlobalType.FindOrCreateStaticConstructor();
+            string value = "Obfuscated with " + Reference.Name + " v" + Reference.Version;
+            MethodDef strings = CreateReturnMethodDef(value, cctor);
+            Console.WriteLine("  [OBADDER] Adding method \"" + strings.Name + "\" in \"" + cctor.Name + "\"...");
+            module.GlobalType.Methods.Add(strings);
         }
 
         private static MethodDef CreateReturnMethodDef(string value, MethodDef source_method)
