@@ -47,5 +47,5 @@ You can learn from it, it's just a fork (an amelioration) of the original projec
 
 # 📚 Credits 
 
-[0xd4d's dnlib](https://github.com/0xd4d/dnlib/)
-[NotAccursed's SimpleObfuscator](https://github.com/NotAccursed/SimpleObfuscator/)
+<a href="https://github.com/0xd4d/dnlib">0xd4d's dnlib</a>&nbsp;&nbsp;&nbsp;
+<a href="https://github.com/NotAccursed/SimpleObfuscator">NotAccursed's SimpleObfuscator</a>&nbsp;&nbsp;&nbsp;
