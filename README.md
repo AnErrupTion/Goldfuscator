@@ -17,7 +17,7 @@
     <h2>Before :</h2>
     <img src="https://i.imgur.com/fGOv95K.png">
     <h2>After :</h2>
-    <img src="https://i.imgur.com/DPzUMA5.png">
+    <img src="https://i.imgur.com/hj081IC.png">
 </p>
 <br>
 
