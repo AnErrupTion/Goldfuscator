@@ -17,7 +17,7 @@ namespace Goldfuscator.Core.Utils
             MethodDef cctor = module.GlobalType.FindOrCreateStaticConstructor();
             string value = "Obfuscated with " + Reference.Name + " v" + Reference.Version;
             MethodDef strings = CreateReturnMethodDef(value, cctor);
-            Console.WriteLine("  [OBADDER] Adding method \"" + strings.Name + "\" in \"" + cctor.Name + "\"...");
+            Console.WriteLine($"  [OBADDER] Adding method \"{strings.Name}\" in \"{cctor.Name}\"...");
             module.GlobalType.Methods.Add(strings);
         }
 
