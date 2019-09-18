@@ -1,7 +1,9 @@
 using dnlib.DotNet;
+using dnlib.DotNet.Writer;
 using Goldfuscator.Core.Protections;
 using Goldfuscator.Core.Protections.AddRandoms;
 using Goldfuscator.Core.Protections.MetaStrip;
+using Goldfuscator.Core.Protections.ProxyAdder;
 using Goldfuscator.Core.Utils;
 using System;
 using System.IO;
@@ -53,7 +55,10 @@ internal class Program
 
         Execute(module);
         Console.WriteLine(Reference.Prefix + "Saving file...");
-		module.Write(@"C:\Users\" + Environment.UserName + @"\Desktop\" + fileName + "_protected" + FileExtension);
+
+        var opts = new ModuleWriterOptions(module);
+        opts.Logger = DummyLogger.NoThrowInstance;
+        module.Write(@"C:\Users\" + Environment.UserName + @"\Desktop\" + fileName + "_protected" + FileExtension, opts);
 
         Console.WriteLine(Reference.Prefix + "Done!");
         Console.ReadKey();
@@ -64,6 +69,7 @@ internal class Program
     /// RandomOutlinedMethods.Execute(module); || We are executing the obfuscation method 'RandomOutlinedMethods'.
     /// MetaStrip.Execute(module); || We are executing the obfuscation method 'MetaStrip'.
     /// OBAdder.Execute(module); || We are executing the obfuscation method 'OBAdder'.
+    /// ProxyAdder.Execute(module); || We are executing the obfuscation method 'ProxyAdder'.
     /// </summary>
     private static void Execute(ModuleDefMD module)
 	{
@@ -75,7 +81,7 @@ internal class Program
         MetaStrip.Execute(module: module);
         Console.WriteLine(Reference.Prefix + "Applying 'OBAdder' obfuscation...");
         OBAdder.Execute(module: module);
-        //Console.WriteLine(Reference.Prefix + "Applying 'StringEncryption' obfuscation...");
-        //StringEncryption.Execute(module: module);
+        Console.WriteLine(Reference.Prefix + "Applying 'ProxyAdder' obfuscation...");
+        ProxyAdder.Execute(module: module);
     }
 }
