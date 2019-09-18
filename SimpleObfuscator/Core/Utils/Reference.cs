@@ -4,6 +4,6 @@ namespace Goldfuscator.Core.Utils
     {
         public static string Name = "Goldfuscator";
         public static string Prefix = "[" + Name.ToUpper() + "] ";
-        public static string Version = "1.3";
+        public static string Version = "1.4";
     }
 }
