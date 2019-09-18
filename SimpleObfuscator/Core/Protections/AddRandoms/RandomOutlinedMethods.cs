@@ -17,11 +17,11 @@ namespace Goldfuscator.Core.Protections.AddRandoms
 			{
 				foreach (var method in type.Methods.ToArray())
 				{
-					MethodDef strings = CreateReturnMethodDef(GenerateRandomString(50), method);
+					MethodDef strings = CreateReturnMethodDef(GenerateRandomString(Next(50, 70)), method);
 					MethodDef ints = CreateReturnMethodDef(Next(11111, 999999999), method);
-                    Console.WriteLine("  [ROM] Adding junk string method \"" + strings.Name + "\" in \"" + method.Name + "\" (" + type.Name + ")...");
+                    Console.WriteLine($"  [ROM] Adding junk string method \"{strings.Name}\" in \"{method.Name}\" ({type.Name})...");
                     type.Methods.Add(strings);
-                    Console.WriteLine("  [ROM] Adding junk integer method \"" + strings.Name + "\" in \"" + method.Name + "\" (" + type.Name + ")...");
+                    Console.WriteLine($"  [ROM] Adding junk integer method \"{strings.Name}\" in \"{method.Name}\" ({type.Name})...");
                     type.Methods.Add(ints);
                 }
 			}
