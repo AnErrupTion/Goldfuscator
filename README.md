@@ -14,7 +14,7 @@
 <br>
 
 <p align="center">
-    <h2>This is only basic obfuscation. For better obfuscation, see Noisette Obfuscator, it has a tons of modules and I'm sure you can fix and add some ;)</h2>
+    <h2>This is only basic obfuscation. For better obfuscation, see Noisette Obfuscator, it has tons of modules and I'm sure you can fix and add some ;)</h2>
 </p>
 <br>
 
