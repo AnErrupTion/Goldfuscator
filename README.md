@@ -14,6 +14,11 @@
 <br>
 
 <p align="center">
+    <h2>This is only basic obfuscation. For better obfuscation, see Noisette Obfuscator, it has a tons of modules and I'm sure you can fix and add some ;)</h2>
+</p>
+<br>
+
+<p align="center">
     <h2>Before :</h2>
     <img src="https://i.imgur.com/LvN1Mvw.png">
     <h2>After :</h2>
